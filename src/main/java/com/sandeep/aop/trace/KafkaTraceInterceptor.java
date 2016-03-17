@@ -15,10 +15,10 @@ import org.slf4j.LoggerFactory;
  * @author Sandeep Nayak
  *
  */
-public class KafkaTraceLogger extends TraceLogger {
+public class KafkaTraceInterceptor extends TracingInterceptor {
   private static final String MESSAGE_BODY = "body";
   private static final String MESSAGE_HEADER = "header";
-  private static final Logger logger = LoggerFactory.getLogger(KafkaTraceLogger.class);
+  private static final Logger logger = LoggerFactory.getLogger(KafkaTraceInterceptor.class);
   @Override
   public Object invoke(MethodInvocation invocation) throws Throwable {
     logger.debug("Trace at {} transactionId = {} && PropertyId = {} && PostId {} @time {}",

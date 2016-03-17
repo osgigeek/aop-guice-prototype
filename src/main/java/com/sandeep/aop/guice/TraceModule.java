@@ -1,12 +1,17 @@
 package com.sandeep.aop.guice;
 
+import java.lang.reflect.Method;
+
+import org.apache.http.client.HttpClient;
+
 import com.google.inject.AbstractModule;
+import com.google.inject.matcher.AbstractMatcher;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.name.Names;
 import com.sandeep.aop.annotations.Trace;
-import com.sandeep.aop.trace.HttpTraceLogger;
-import com.sandeep.aop.trace.KafkaTraceLogger;
-import com.sandeep.aop.traced.HTTPRequestGenerator;
+import com.sandeep.aop.trace.HttpRequestBaseInterceptor;
+import com.sandeep.aop.trace.HttpRequestWrapperInterceptor;
+import com.sandeep.aop.trace.KafkaTraceInterceptor;
 import com.sandeep.aop.traced.KafkaSender;
 
 /**
@@ -26,9 +31,18 @@ public class TraceModule extends AbstractModule {
   protected void configure() {
     // This interceptor intercepts all calls to HTTPRequestGenerator and invokes the HTTPTraceLogger
     // prior to those calls
-    bindInterceptor(Matchers.subclassesOf(HTTPRequestGenerator.class),
-        Matchers.annotatedWith(Trace.class),
-        new HttpTraceLogger());
+    bind(HttpClient.class).to(MyHttpClient.class);
+    bindInterceptor(Matchers.subclassesOf(HttpClient.class),
+        new AbstractMatcher<Method>() {
+          @Override
+          public boolean matches(Method method) {
+            if (method.getName().equals("execute")) {
+              return true;
+            }
+            return false;
+          }
+        },
+        new HttpRequestBaseInterceptor(), new HttpRequestWrapperInterceptor());
     bindConstant().annotatedWith(Names.named("kafka_topic")).to("test_topic");
     bindConstant().annotatedWith(Names.named("kafka_partition")).to("test_partition");
     bindConstant().annotatedWith(Names.named("kafka_broker_list"))
@@ -37,7 +51,8 @@ public class TraceModule extends AbstractModule {
     // This interceptor intercepts all calls to KafkaSender and invokes the KafkaTraceLogger
     // prior to those calls
     bindInterceptor(Matchers.subclassesOf(KafkaSender.class), Matchers.annotatedWith(Trace.class),
-        new KafkaTraceLogger());
+        new KafkaTraceInterceptor());
   }
+
 
 }

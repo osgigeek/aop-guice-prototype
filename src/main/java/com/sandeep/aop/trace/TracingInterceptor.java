@@ -16,10 +16,10 @@ import org.slf4j.LoggerFactory;
  * @author Sandeep Nayak
  *
  */
-public class TraceLogger implements MethodInterceptor {
-  private static final Logger logger = LoggerFactory.getLogger(TraceLogger.class);
+public class TracingInterceptor implements MethodInterceptor {
+  private static final Logger logger = LoggerFactory.getLogger(TracingInterceptor.class);
 
-  public TraceLogger() {}
+  public TracingInterceptor() {}
 
   @Override
   public Object invoke(MethodInvocation invocation) throws Throwable {

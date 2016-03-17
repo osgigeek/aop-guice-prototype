@@ -4,9 +4,8 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +27,10 @@ public class TracedEntityTest {
 
   @Inject
   KafkaSender sender;
+
+  @Inject
+  HttpClient client;
+
   private static final Logger logger = LoggerFactory.getLogger(TracedEntityTest.class);
   @Before
   public void setup() {
@@ -46,13 +49,13 @@ public class TracedEntityTest {
     HttpGet get = null;
     try {
       get = requestor.createGETRequest("localhost", 7991);
-      CloseableHttpClient client = HttpClients.createDefault();
       try{
         client.execute(get);
       } catch (IOException ex) {
         logger.warn("The server the test is connecting to is not running. {}", ex.getMessage());
       }
     } catch (Exception e) {
+      e.printStackTrace();
       fail(e.getMessage());
     }
   }

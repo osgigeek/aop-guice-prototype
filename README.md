@@ -8,8 +8,8 @@ The git repo contains code which uses Guice to illustrate how Guice can be used 
 
 ### Java Code Packages
 
-* com.sandeep.aop.annotations: Contains all annotations which trigger cross cutting concerns
-* com.sandeep.aop.guice: Contains all code which is related to google guice. This is extensions to guice modules which allow injecting behavior.
+* `com.sandeep.aop.annotations`: Contains all annotations which trigger cross cutting concerns
+* `com.sandeep.aop.guice`: Contains all code which is related to google guice. This is extensions to guice modules which allow injecting behavior.
 * com.sandeep.aop.trace: Contains code which illustrates how tracing is enabled using Guice for HTTP and Kafka classes
 * com.sandeep.aop.traced: Contains code which is being traced
 

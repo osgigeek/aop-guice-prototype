@@ -10,10 +10,14 @@ The git repo contains code which uses Guice to illustrate how Guice can be used 
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0dd92ccc8513e1253595f88af443c4a50c60952d
 * `com.sandeep.aop.annotations`: Contains all annotations which trigger cross cutting concerns
 * `com.sandeep.aop.guice`: Contains all code which is related to google guice. This is extensions to guice modules which allow injecting behavior.
 * `com.sandeep.aop.trace`: Contains code which illustrates how tracing is enabled using Guice for HTTP and Kafka classes
 * `com.sandeep.aop.traced`: Contains code which is being traced
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 * com.sandeep.aop.annotations: Contains all annotations which trigger cross cutting concerns
@@ -27,6 +31,8 @@ The git repo contains code which uses Guice to illustrate how Guice can be used 
 >>>>>>> 8e2015c... Adding README for the repo
 =======
 >>>>>>> 478b490... Updating docs - 2
+=======
+>>>>>>> 0dd92ccc8513e1253595f88af443c4a50c60952d
 
 ### Test Code
 
